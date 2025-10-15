@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Diwali 2025</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">✨ Diwali</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Wishes</a>
+      <a href="#">Best Deals</a>
+      <a href="#">Donate & Gift</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>🪔 Happy Diwali 🪔</h1>
+    <p>Celebrate the festival of lights with joy and love.</p>
+  </section>
+
+  <!-- Wishes Section -->
+  <section class="wishes">
+    <div class="wish-card">
+      <img src="diya1.png" alt="Diya">
+      <h2>Your wishes</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <button>Read More</button>
+    </div>
+    <div class="wish-card">
+      <img src="diya2.png" alt="Diya">
+      <h2>Your wishes</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <button>Read More</button>
+    </div>
+    <div class="wish-card">
+      <img src="diya3.png" alt="Diya">
+      <h2>Your wishes</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <button>Read More</button>
+    </div>
+  </section>
+
+  <!-- Countdown Section -->
+  <section class="countdown">
+    <h2>Diwali is Coming!</h2>
+    <p>Let's countdown to Diwali</p>
+    <div id="timer"></div>
+  </section>
+  <audio id="bg-audio" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/03/07/audio_4e8b7e6b2e.mp3?filename=temple-bell-sound-143340.mp3" type="audio/mpeg">
+</audio>
+
+<button id="sound-toggle">🔇 Mute</button>
+
+<script>
+  const audio = document.getElementById('bg-audio');
+  const toggleBtn = document.getElementById('sound-toggle');
+  let isMuted = true;
+
+  document.body.addEventListener('click', () => {
+    if (isMuted) {
+      audio.play();
+      toggleBtn.textContent = "🔊 Mute";
+      isMuted = false;
+    }
+  }, { once: true });
+
+  toggleBtn.addEventListener('click', () => {
+    if (isMuted) {
+      audio.play();
+      toggleBtn.textContent = "🔊 Mute";
+    } else {
+      audio.pause();
+      toggleBtn.textContent = "🔇 Unmute";
+    }
+    isMuted = !isMuted;
+  });
+</script>
+<!-- Fireworks Boom Sound Player -->
+<iframe 
+  frameborder="0" 
+  scrolling="no" 
+  src="https://freesound.org/embed/sound/iframe/815099/simple/medium/" 
+  width="481" 
+  height="86">
+</iframe>
+
+
+<style>
+#sound-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #a30000;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  z-index: 10000;
+}
+#sound-toggle:hover {
+  background: #800000;
+}
+</style>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Happy Diwali. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Fireworks Canvas -->
+  <canvas id="fireworks"></canvas>
+
+  <!-- Flower Animation Container -->
+  <div id="flower-container"></div>
+
+  <script>
+    // 🕰️ Countdown Timer
+    const countDownDate = new Date("Oct 20, 2025 00:00:00").getTime();
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("timer").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      if (distance < 0) {
+        clearInterval(timer);
+        document.getElementById("timer").innerHTML = "🎉 Happy Diwali!";
+      }
+    }, 1000);
+
+    // 🌸 Flower Animation
+    const flowerContainer = document.getElementById("flower-container");
+    function createFlower() {
+      const flower = document.createElement("div");
+      flower.classList.add("flower");
+      flower.style.left = Math.random() * 100 + "vw";
+      flower.style.animationDuration = 4 + Math.random() * 3 + "s";
+      flower.innerHTML = "🌸";
+      flowerContainer.appendChild(flower);
+      setTimeout(() => flower.remove(), 7000);
+    }
+    setInterval(createFlower, 300);
+
+    // 🧨 Fireworks Animation
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    class Firework {
+      constructor(x, y, color) {
+        this.x = x; this.y = y; this.color = color;
+        this.particles = []; this.createParticles();
+      }
+      createParticles() {
+        for (let i = 0; i < 30; i++) {
+          this.particles.push({
+            x: this.x, y: this.y, radius: Math.random() * 2 + 1,
+            color: this.color, angle: Math.random() * 2 * Math.PI,
+            speed: Math.random() * 4 + 1, life: 100
+          });
+        }
+      }
+      update() {
+        this.particles.forEach(p => {
+          p.x += Math.cos(p.angle) * p.speed;
+          p.y += Math.sin(p.angle) * p.speed;
+          p.life -= 2;
+        });
+      }
+      draw() {
+        this.particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        });
+      }
+    }
+
+    let fireworks = [];
+    function randomColor() {
+      const colors = ['#ffcc00', '#ff6600', '#ff0000', '#ff69b4', '#00ffff', '#00ff66'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function spawnFirework() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height / 2;
+      fireworks.push(new Firework(x, y, randomColor()));
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      fireworks.forEach((fw, index) => {
+        fw.update();
+        fw.draw();
+        fw.particles = fw.particles.filter(p => p.life > 0);
+        if (fw.particles.length === 0) fireworks.splice(index, 1);
+      });
+    }
+    
+
+    setInterval(spawnFirework, 800);
+    animate();
+  </script>
+</body>
+</html>
